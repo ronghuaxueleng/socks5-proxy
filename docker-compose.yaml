@@ -1,0 +1,24 @@
+services:
+  socks5-pool:
+    build: .
+    restart: always
+    ports:
+      - "1080:1080"
+      - "8980:8080"
+    environment:
+      # 如需通过已有代理抓取 socks5-proxy.github.io，取消注释并填写代理地址
+      HTTPS_PROXY: socks5://192.168.10.13:7890
+    command:
+      - ./socks5-pool
+      - -listen
+      - 0.0.0.0:1080
+      - -status
+      - 0.0.0.0:8080
+      # - -url
+      # - https://socks5-proxy.github.io/
+      # - -scrape-interval
+      # - 20m
+      # - -check-timeout
+      # - 10s
+      # - -max-concurrent
+      # - "20"
